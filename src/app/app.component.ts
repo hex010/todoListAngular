@@ -32,4 +32,12 @@ export class AppComponent {
   toggleExpand(todo: Todo) {
     todo.isExpanded = !todo.isExpanded;
   }
+
+  toggleCompleted(todo: Todo) {
+    todo.completed = !todo.completed;
+  }
+
+  openDescriptionEditModal(todo: Todo) {
+    //todo
+  }
 }

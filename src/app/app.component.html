@@ -1,50 +1,56 @@
 <div class="container-fluid d-flex flex-column justify-content-start align-items-center vh-100">
   
+  <!-- [PRADZIA] "Todo List" uzrasas -->
   <div class="mt-4">
-    <!-- [PRADZIA] "Todo List" uzrasas -->
     <h1 class="text-center fw-bold mb-5">Todo List</h1>
-    <!-- [PABAIGA] "Todo List" uzrasas -->
   </div>
-  
+  <!-- [PABAIGA] "Todo List" uzrasas -->
 
   <!-- [PRADZIA] naujo TODO elemento pridejimas -->
   <h3 class="mb-2"> Create new Todo item:</h3>
   <form class="w-100 mb-5" #todoForm="ngForm" (ngSubmit)="addTodoItem(todoForm)" novalidate>
-    <div class="form-group">
+
+    <div class="form-group mb-3">
       <label for="todoHeader">Todo Header</label>
-      <input type="text" class="form-control mb-3" id="todoHeader" name="todoHeader" placeholder="Enter todo header" required ngModel #todoHeader="ngModel">
+      <input type="text" class="form-control" id="todoHeader" name="todoHeader" placeholder="Enter todo header" required ngModel #todoHeader="ngModel">
       <div *ngIf="todoForm.submitted && todoHeader.invalid" class="text-danger">
         Todo header is required.
       </div>
     </div>
-    <div class="form-group">
+  
+    <div class="form-group mb-3">
       <label for="todoDescription">Todo Description</label>
-      <textarea class="form-control mb-3" id="todoDescription" name="todoDescription" placeholder="Enter todo description" required ngModel #todoDescription="ngModel"></textarea>
+      <textarea class="form-control" id="todoDescription" name="todoDescription" placeholder="Enter todo description" required ngModel #todoDescription="ngModel"></textarea>
       <div *ngIf="todoForm.submitted && todoDescription.invalid" class="text-danger">
         Todo description is required.
       </div>
     </div>
+
     <div class="text-center">
       <button class="btn btn-outline-secondary" type="submit">Add Todo Item</button>
     </div>
+  
   </form>
   <!-- [PABAIGA] naujo TODO elemento pridejimas -->
 
-  <h2 class="text-center mb-3">Todo Elements</h2>
+  
   <!-- [PRADZIA] TODO elementu spausdinimas -->
+  <h2 class="text-center mb-3">Todo Elements</h2>
+  
   <ul class="list-group w-100">
-    <li *ngFor="let todo of todoList" class="list-group-item d-flex justify-content-between align-items-center" (click)="toggleExpand(todo)">
+    <li *ngFor="let todo of todoList" class="list-group-item d-flex justify-content-between align-items-center" tabindex="0" (click)="toggleExpand(todo)">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" [checked]="todo.completed" id="todo_{{todo.id}}" (click)="$event.stopPropagation()"> <!-- (click)="$event.stopPropagation() tam, kad netriggerintu collapse ir expand li elemento -->
-        <label class="form-check-label" for="todo_{{todo.id}}" (click)="$event.preventDefault()"> <!-- (click)="$event.preventDefault() tam, kad netriggerintu checkbox elemento-->
+        <input class="form-check-input" type="checkbox" [checked]="todo.completed" (click)="$event.stopPropagation(); toggleCompleted(todo)"> <!-- (click)="$event.stopPropagation() tam, kad netriggerintu collapse ir expand li elemento -->
+        <span class="form-check-label" [class.crossed-out]="todo.completed"> <!-- [class.crossed-out]="todo.completed" naudojamas, kad jeigu todo elementas yra checked, tai tada iskviecia stiliu 'crossed-out', kad uzdetu tekstui pabraukima-->
           {{todo.title}}
-        </label>
+        </span> 
         <hr *ngIf="todo.isExpanded" class="mt-1 mb-1 w-100">
-        <div *ngIf="todo.isExpanded" class="mt-2">
-          <p>{{todo.description}}</p>
+        <div *ngIf="todo.isExpanded" class="d-flex justify-content-between align-items-center mt-2">
+          <span class ="todoDescriptionText" [class.crossed-out]="todo.completed">{{todo.description}}</span>
+          <img src="../assets/images/edit.png" alt="Edit" (click)="$event.stopPropagation(); openDescriptionEditModal(todo)"> <!-- (click)="$event.stopPropagation() tam, kad netriggerintu collapse ir expand li elemento -->
         </div>
       </div>
-      <img src="../assets/images/trashbin.png" alt="Button" (click)="deleteTodoItem(todo)">
+      <img src="../assets/images/trashbin.png" alt="Delete" (click)="deleteTodoItem(todo)"> 
     </li>
   </ul>
   <!-- [PABAIGA] TODO elementu spausdinimas -->

@@ -1,8 +1,15 @@
-.form-check-input:checked + .form-check-label,
-.form-check-input:checked + .form-check-label + .mt-1 + .mt-2 p {
+.crossed-out {
   text-decoration: line-through;
 }
 
-img[src="../assets/images/trashbin.png"]:hover {
-    cursor: pointer;
+img[src="../assets/images/trashbin.png"], img[src="../assets/images/edit.png"]:hover {
+  cursor: pointer;
+}
+
+.todoDescriptionText {
+  padding-right: 1rem;
+}
+
+li.list-group-item:focus {
+  border: 1px solid blueviolet;
 }
