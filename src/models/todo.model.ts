@@ -4,11 +4,13 @@ export class Todo {
     public title: string;
     public description: string;
     public completed: boolean;
+    public isExpanded: boolean;
 
     constructor(title: string, description: string){
         this.id = uuidv4();
         this.title = title;
         this.description = description;
         this.completed = false;
+        this.isExpanded = false;
     }
 }

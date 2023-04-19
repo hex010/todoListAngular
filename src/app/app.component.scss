@@ -1,0 +1,8 @@
+.form-check-input:checked + .form-check-label,
+.form-check-input:checked + .form-check-label + .mt-1 + .mt-2 p {
+  text-decoration: line-through;
+}
+
+img[src="../assets/images/trashbin.png"]:hover {
+    cursor: pointer;
+}
