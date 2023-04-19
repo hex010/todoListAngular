@@ -5,6 +5,30 @@
     <h1 class="text-center fw-bold mb-5">Todo List</h1>
     <!-- [PABAIGA] "Todo List" uzrasas -->
   </div>
+  
+
+  <!-- [PRADZIA] naujo TODO elemento pridejimas -->
+  <h3 class="mb-2"> Create new Todo item:</h3>
+  <form class="w-100 mb-5" #todoForm="ngForm" (ngSubmit)="addTodoItem(todoForm)" novalidate>
+    <div class="form-group">
+      <label for="todoHeader">Todo Header</label>
+      <input type="text" class="form-control mb-3" id="todoHeader" name="todoHeader" placeholder="Enter todo header" required ngModel #todoHeader="ngModel">
+      <div *ngIf="todoForm.submitted && todoHeader.invalid" class="text-danger">
+        Todo header is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="todoDescription">Todo Description</label>
+      <textarea class="form-control mb-3" id="todoDescription" name="todoDescription" placeholder="Enter todo description" required ngModel #todoDescription="ngModel"></textarea>
+      <div *ngIf="todoForm.submitted && todoDescription.invalid" class="text-danger">
+        Todo description is required.
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-outline-secondary" type="submit">Add Todo Item</button>
+    </div>
+  </form>
+  <!-- [PABAIGA] naujo TODO elemento pridejimas -->
 
   <h2 class="text-center mb-3">Todo Elements</h2>
   <!-- [PRADZIA] TODO elementu spausdinimas -->
