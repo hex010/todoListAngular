@@ -47,7 +47,7 @@
         <hr *ngIf="todo.isExpanded" class="mt-1 mb-1 w-100">
         <div *ngIf="todo.isExpanded" class="d-flex justify-content-between align-items-center mt-2">
           <span class ="todoDescriptionText" [class.crossed-out]="todo.completed">{{todo.description}}</span>
-          <img src="../assets/images/edit.png" alt="Edit" (click)="$event.stopPropagation(); openDescriptionEditModal(todo)"> <!-- (click)="$event.stopPropagation() tam, kad netriggerintu collapse ir expand li elemento -->
+          <img src="../assets/images/edit.png" alt="Edit" (click)="$event.stopPropagation(); openDescriptionEditDialog(todo)"> <!-- (click)="$event.stopPropagation() tam, kad netriggerintu collapse ir expand li elemento -->
         </div>
       </div>
       <img src="../assets/images/trashbin.png" alt="Delete" (click)="deleteTodoItem(todo)"> 

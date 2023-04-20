@@ -1,0 +1,13 @@
+<div class="p-3">
+    <img class="closeImageButton" src="../assets/images/close.png" alt="Close" (click)="onCloseClick()">
+    <hr class="mb-1">
+    <h2 class="mb-3 text-center">Edit description</h2>
+    <form #editDescriptionForm="ngForm" (ngSubmit)="updateTodoItem()">
+        <label for="editTodoDescription" class="mb-1">Todo element Description:</label>
+        <textarea class="form-control" id="editTodoDescription" name="editTodoDescription" placeholder="Enter todo description" [(ngModel)]="descriptionCopy" required #descriptionInput="ngModel"> {{currentTodo.description}} </textarea>
+        <div *ngIf="descriptionInput.invalid && (descriptionInput.dirty || descriptionInput.touched)" class="text-danger">
+            Todo header is required.
+        </div>
+        <button class="btn btn-outline-secondary mt-2" type="submit" [disabled]="editDescriptionForm.invalid">Save</button>
+    </form>
+</div>
