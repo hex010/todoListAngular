@@ -20,11 +20,11 @@ export class AppComponent {
   ];
 
   ngOnInit(): void {
-    // Make an HTTP GET request to the API endpoint
+    //<Todo[]> - kokio tipo data is serverio gausiu
     this.http.get<Todo[]>('http://localhost:8080/api/todos').subscribe({
       next: (data) => {
         this.todoList = data;
-        console.log('Successfully retrieved Todos data from API:', this.todoList);
+        console.log('Successfully retrieved Todos data from API');
       },
       error: (error) => {
         console.log('Error retrieving Todos data from API:', error);
@@ -39,11 +39,10 @@ export class AppComponent {
   addTodoItem(newTodoForm : NgForm) {
     if(newTodoForm.valid){
       const newTodo = new Todo(newTodoForm.value.todoHeader, newTodoForm.value.todoDescription);
-      this.http.post<Todo>('http://localhost:8080/api/todos', newTodo).subscribe({
-        next: (data) => {
+      this.http.post('http://localhost:8080/api/todos', newTodo).subscribe({
+        next: () => {
           this.todoList.push(newTodo);
           newTodoForm.resetForm(); //skirtumas nuo .reset() tame, kad .resetForm() dar pakeicia subbmited i false, todel nerodys error messages po submito sekmingo
-          console.log('New todo item created:', data);
           this.snackBar.open('Todo item added successfully.', 'OK', {
             duration: 3000,
             panelClass: ['snackbar-success']
@@ -62,20 +61,19 @@ export class AppComponent {
 
 
   deleteTodoItem(todo: Todo): void {
-    this.http.delete<Todo>('http://localhost:8080/api/todos/${todo.id}').subscribe({
-      next: (data) => {
+    this.http.delete('http://localhost:8080/api/todos/'+ todo.id).subscribe({
+      next: () => {
         const index = this.todoList.findIndex(t => t.id === todo.id);
         if (index !== -1) {
           this.todoList.splice(index, 1);
         }
-        console.log(`Todo with id ${todo.id} successfully deleted from the server.`);
         this.snackBar.open('Todo item deleted successfully.', 'OK', {
           duration: 3000,
           panelClass: ['snackbar-success']
         });
       },
       error: (err) => {
-        console.error(`Error deleting todo with id ${todo.id} from the server: ${err}`);
+        console.error(err);
         this.snackBar.open('Failed to delete todo item.', 'OK', {
           duration: 3000,
           panelClass: ['snackbar-error']

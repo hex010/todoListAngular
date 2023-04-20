@@ -30,10 +30,9 @@ export class DescriptionEditPopUpDialogComponent {
 
   updateTodoItem(): void {
     this.isUpdating = true;
-    this.http.put<Todo>('http://localhost:3000/api/todos/${this.copyTodo.id}', this.copyTodo).subscribe({
-      next: (data) => {
-        this.currentTodo = this.copyTodo;
-        console.log(data);
+    this.http.put('http://localhost:8080/api/todos', this.copyTodo).subscribe({
+      next: () => {
+        this.currentTodo.description = this.copyTodo.description;
         this.snackBar.open('Todo item updated successfully.', 'OK', {
           duration: 3000,
           panelClass: ['snackbar-success']
@@ -43,6 +42,8 @@ export class DescriptionEditPopUpDialogComponent {
       },
       error: (err) => {
         console.error(err);
+        console.error('this.currentTodo object: ', this.currentTodo);
+        console.error('this.copyTodo object: ', this.copyTodo);
         this.snackBar.open('Failed to update todo item.', 'OK', {
           duration: 3000,
           panelClass: ['snackbar-error']
