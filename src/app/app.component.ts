@@ -88,6 +88,22 @@ export class AppComponent {
 
   toggleCompleted(todo: Todo) {
     todo.completed = !todo.completed;
+    this.http.put('http://localhost:8080/api/todos', todo).subscribe({
+      next: () => {
+        this.snackBar.open('Todo item updated successfully.', 'OK', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        });
+      },
+      error: (err) => {
+        todo.completed = !todo.completed;
+        console.error(err);
+        this.snackBar.open('Failed to update todo item.', 'OK', {
+          duration: 3000,
+          panelClass: ['snackbar-error']
+        });
+      }
+    });
   }
 
   openDescriptionEditDialog(todo: Todo) {

@@ -42,8 +42,6 @@ export class DescriptionEditPopUpDialogComponent {
       },
       error: (err) => {
         console.error(err);
-        console.error('this.currentTodo object: ', this.currentTodo);
-        console.error('this.copyTodo object: ', this.copyTodo);
         this.snackBar.open('Failed to update todo item.', 'OK', {
           duration: 3000,
           panelClass: ['snackbar-error']
